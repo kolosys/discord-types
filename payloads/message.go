@@ -251,6 +251,30 @@ const (
 // Forward declarations for types defined in other files
 // GuildMember is defined in guild_member.go
 // ActionRowComponent is defined in components.go
-type RoleSubscriptionData struct{} // Will be defined in monetization.go
+// RoleSubscriptionData represents role subscription data.
+type RoleSubscriptionData struct {
+	// RoleSubscriptionListingID is the id of the role subscription listing.
+	RoleSubscriptionListingID discord.Snowflake `json:"role_subscription_listing_id"`
+
+	// TierName is the name of the tier.
+	TierName string `json:"tier_name"`
+
+	// TotalMonthsSubscribed is the total months subscribed.
+	TotalMonthsSubscribed int `json:"total_months_subscribed"`
+
+	// IsRenewal is whether this is a renewal.
+	IsRenewal bool `json:"is_renewal"`
+
+	// HasAccess is whether the user has access to the role.
+	HasAccess bool `json:"has_access"`
+}
+
 // Poll is defined in poll.go
-type MessageCall struct{} // Will be defined when needed
+// MessageCall represents a message call.
+type MessageCall struct {
+	// EndedTimestamp is when the call ended.
+	EndedTimestamp *string `json:"ended_timestamp,omitempty"`
+
+	// Participants are the participants in the call.
+	Participants []discord.Snowflake `json:"participants"`
+}

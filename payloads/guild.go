@@ -338,8 +338,166 @@ const (
 	GuildFeatureGuestsEnabled                         GuildFeature = "GUESTS_ENABLED"
 )
 
-// Forward declarations for types that will be defined in other files
-type Role struct{} // Will be defined in permissions.go
-// Sticker is defined in sticker.go
-type GuildWelcomeScreen struct{}
-type IncidentsData struct{}
+// Role represents a Discord role.
+//
+// See: https://discord.com/developers/docs/topics/permissions#role-object
+type Role struct {
+	// ID is the role id.
+	ID discord.Snowflake `json:"id"`
+
+	// Name is the role name.
+	Name string `json:"name"`
+
+	// Color is the integer representation of hexadecimal color code.
+	Color int `json:"color"`
+
+	// Hoist is whether this role is pinned in the user listing.
+	Hoist bool `json:"hoist"`
+
+	// Icon is the role icon hash.
+	Icon *string `json:"icon,omitempty"`
+
+	// UnicodeEmoji is the role unicode emoji.
+	UnicodeEmoji *string `json:"unicode_emoji,omitempty"`
+
+	// Position is the position of this role.
+	Position int `json:"position"`
+
+	// Permissions is the permission bit set.
+	Permissions discord.Permissions `json:"permissions"`
+
+	// Managed is whether this role is managed by an integration.
+	Managed bool `json:"managed"`
+
+	// Mentionable is whether this role is mentionable.
+	Mentionable bool `json:"mentionable"`
+
+	// Tags are the tags this role has.
+	Tags *RoleTags `json:"tags,omitempty"`
+}
+
+// RoleTags represents role tags.
+type RoleTags struct {
+	// BotID is the id of the bot this role belongs to.
+	BotID *discord.Snowflake `json:"bot_id,omitempty"`
+
+	// IntegrationID is the id of the integration this role belongs to.
+	IntegrationID *discord.Snowflake `json:"integration_id,omitempty"`
+
+	// PremiumSubscriberID is the id of this role's subscription sku and level.
+	PremiumSubscriberID *discord.Snowflake `json:"premium_subscriber_id,omitempty"`
+
+	// SubscriptionListingID is the id of the subscription listing this role belongs to.
+	SubscriptionListingID *discord.Snowflake `json:"subscription_listing_id,omitempty"`
+
+	// AvailableForPurchase is whether this role is available for purchase.
+	AvailableForPurchase *bool `json:"available_for_purchase,omitempty"`
+
+	// GuildConnections is whether this role is a guild's linked role.
+	GuildConnections *bool `json:"guild_connections,omitempty"`
+}
+
+// GuildWelcomeScreen represents a guild welcome screen.
+//
+// See: https://discord.com/developers/docs/resources/guild#welcome-screen-object
+type GuildWelcomeScreen struct {
+	// Description is the server description shown in the welcome screen.
+	Description *string `json:"description,omitempty"`
+
+	// WelcomeChannels are the channels shown in the welcome screen.
+	WelcomeChannels []GuildWelcomeScreenChannel `json:"welcome_channels"`
+}
+
+// GuildWelcomeScreenChannel represents a welcome screen channel.
+type GuildWelcomeScreenChannel struct {
+	// ChannelID is the channel's id.
+	ChannelID discord.Snowflake `json:"channel_id"`
+
+	// Description is the description shown for the channel.
+	Description string `json:"description"`
+
+	// EmojiID is the emoji id, if the emoji is custom.
+	EmojiID *discord.Snowflake `json:"emoji_id,omitempty"`
+
+	// EmojiName is the emoji name if custom, the unicode character if standard,
+	// or null if no emoji is set.
+	EmojiName *string `json:"emoji_name,omitempty"`
+}
+
+// IncidentsData represents guild incident data.
+type IncidentsData struct {
+	// Incidents is the list of incidents.
+	Incidents []GuildIncident `json:"incidents"`
+}
+
+// GuildIncident represents a guild incident.
+type GuildIncident struct {
+	// ID is the incident id.
+	ID string `json:"id"`
+
+	// Type is the incident type.
+	Type string `json:"type"`
+
+	// Status is the incident status.
+	Status string `json:"status"`
+
+	// CreatedAt is when the incident was created.
+	CreatedAt string `json:"created_at"`
+
+	// UpdatedAt is when the incident was last updated.
+	UpdatedAt string `json:"updated_at"`
+
+	// ResolvedAt is when the incident was resolved.
+	ResolvedAt *string `json:"resolved_at,omitempty"`
+
+	// Shortlink is the incident shortlink.
+	Shortlink string `json:"shortlink"`
+
+	// Title is the incident title.
+	Title string `json:"title"`
+
+	// Description is the incident description.
+	Description string `json:"description"`
+
+	// Updates are the incident updates.
+	Updates []GuildIncidentUpdate `json:"updates"`
+}
+
+// GuildIncidentUpdate represents a guild incident update.
+type GuildIncidentUpdate struct {
+	// ID is the update id.
+	ID string `json:"id"`
+
+	// Status is the update status.
+	Status string `json:"status"`
+
+	// Body is the update body.
+	Body string `json:"body"`
+
+	// CreatedAt is when the update was created.
+	CreatedAt string `json:"created_at"`
+
+	// UpdatedAt is when the update was last updated.
+	UpdatedAt string `json:"updated_at"`
+
+	// DisplayAt is when the update should be displayed.
+	DisplayAt string `json:"display_at"`
+
+	// AffectedComponents are the affected components.
+	AffectedComponents []GuildIncidentAffectedComponent `json:"affected_components"`
+}
+
+// GuildIncidentAffectedComponent represents an affected component in a guild incident.
+type GuildIncidentAffectedComponent struct {
+	// Code is the component code.
+	Code string `json:"code"`
+
+	// Name is the component name.
+	Name string `json:"name"`
+
+	// OldStatus is the old status.
+	OldStatus string `json:"old_status"`
+
+	// NewStatus is the new status.
+	NewStatus string `json:"new_status"`
+}

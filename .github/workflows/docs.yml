@@ -23,8 +23,7 @@ jobs:
   generate-docs:
     uses: kolosys/.actions/.github/workflows/docs-workflow.yml@main
     with:
-      repository_name: "ion"
-      go_version: "1.22"
+      repository_name: "discord-types"
       generate_examples: true
       skip_commit: false
       create_pr: false

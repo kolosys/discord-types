@@ -5,7 +5,7 @@ This guide will help you get up and running quickly with this package.
 ## Installation
 
 ```bash
-go get github.com/kolosys/ion
+go get github.com/kolosys/discord-types
 ```
 
 ## Quick Start
@@ -16,16 +16,29 @@ Here's a simple example to get you started:
 package main
 
 import (
-    "context"
     "fmt"
-    "log"
     
-    "github.com/kolosys/ion"
+    "github.com/kolosys/discord-types/discord"
+    "github.com/kolosys/discord-types/payloads"
 )
 
 func main() {
-    // Your code here
-    fmt.Println("Hello from ion!")
+    // Using core types
+    var userID discord.Snowflake = "123456789012345678"
+
+    // Using payload types
+    user := payloads.User{
+        ID:            userID,
+        Username:      "example",
+        Discriminator: "0001",
+        GlobalName:    StringPtr("Example User"),
+    }
+
+    fmt.Printf("User: %s (%s)\n", user.Username, user.ID)
+}
+
+func StringPtr(s string) *string {
+    return &s
 }
 ```
 
