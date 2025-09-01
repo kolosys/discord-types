@@ -305,39 +305,39 @@ func TestFormatTimestamp(t *testing.T) {
 
 func TestParseMention(t *testing.T) {
 	tests := []struct {
-		name        string
-		mention     string
-		expectedID  discord.Snowflake
+		name         string
+		mention      string
+		expectedID   discord.Snowflake
 		expectedType string
-		expectError bool
+		expectError  bool
 	}{
 		{
-			name:        "Valid user mention",
-			mention:     "<@123456789012345678>",
-			expectedID:  "123456789012345678",
+			name:         "Valid user mention",
+			mention:      "<@123456789012345678>",
+			expectedID:   "123456789012345678",
 			expectedType: "user",
-			expectError: false,
+			expectError:  false,
 		},
 		{
-			name:        "Valid channel mention",
-			mention:     "<#123456789012345678>",
-			expectedID:  "123456789012345678",
+			name:         "Valid channel mention",
+			mention:      "<#123456789012345678>",
+			expectedID:   "123456789012345678",
 			expectedType: "channel",
-			expectError: false,
+			expectError:  false,
 		},
 		{
-			name:        "Valid role mention",
-			mention:     "<@&123456789012345678>",
-			expectedID:  "123456789012345678",
+			name:         "Valid role mention",
+			mention:      "<@&123456789012345678>",
+			expectedID:   "123456789012345678",
 			expectedType: "role",
-			expectError: false,
+			expectError:  false,
 		},
 		{
-			name:        "Invalid mention",
-			mention:     "invalid",
-			expectedID:  "",
+			name:         "Invalid mention",
+			mention:      "invalid",
+			expectedID:   "",
 			expectedType: "",
-			expectError: true,
+			expectError:  true,
 		},
 	}
 
@@ -428,20 +428,20 @@ func TestBuildUserAvatarURL(t *testing.T) {
 
 func TestBuildGuildIconURL(t *testing.T) {
 	tests := []struct {
-		name      string
-		guildID   discord.Snowflake
-		iconHash  string
-		format    CDNImageFormat
-		size      CDNImageSize
-		expected  string
+		name     string
+		guildID  discord.Snowflake
+		iconHash string
+		format   CDNImageFormat
+		size     CDNImageSize
+		expected string
 	}{
 		{
-			name:      "Valid guild icon URL",
-			guildID:   "123456789012345678",
-			iconHash:  "test_hash",
-			format:    CDNImageFormatPNG,
-			size:      CDNImageSize1024,
-			expected:  "https://cdn.discordapp.com/icons/123456789012345678/test_hash.png?size=1024",
+			name:     "Valid guild icon URL",
+			guildID:  "123456789012345678",
+			iconHash: "test_hash",
+			format:   CDNImageFormatPNG,
+			size:     CDNImageSize1024,
+			expected: "https://cdn.discordapp.com/icons/123456789012345678/test_hash.png?size=1024",
 		},
 	}
 

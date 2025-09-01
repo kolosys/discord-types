@@ -7,19 +7,19 @@ import (
 
 func TestSnowflake_String(t *testing.T) {
 	tests := []struct {
-		name     string
+		name      string
 		snowflake Snowflake
-		expected string
+		expected  string
 	}{
 		{
-			name:     "Valid snowflake",
+			name:      "Valid snowflake",
 			snowflake: "123456789012345678",
-			expected: "123456789012345678",
+			expected:  "123456789012345678",
 		},
 		{
-			name:     "Empty snowflake",
+			name:      "Empty snowflake",
 			snowflake: "",
-			expected: "",
+			expected:  "",
 		},
 	}
 
@@ -107,49 +107,49 @@ func TestSnowflake_Time(t *testing.T) {
 
 func TestSnowflake_IsValid(t *testing.T) {
 	tests := []struct {
-		name     string
+		name      string
 		snowflake Snowflake
-		expected bool
+		expected  bool
 	}{
 		{
-			name:     "Valid snowflake - 17 digits",
+			name:      "Valid snowflake - 17 digits",
 			snowflake: "12345678901234567",
-			expected: true,
+			expected:  true,
 		},
 		{
-			name:     "Valid snowflake - 18 digits",
+			name:      "Valid snowflake - 18 digits",
 			snowflake: "123456789012345678",
-			expected: true,
+			expected:  true,
 		},
 		{
-			name:     "Valid snowflake - 19 digits",
+			name:      "Valid snowflake - 19 digits",
 			snowflake: "1234567890123456789",
-			expected: true,
+			expected:  true,
 		},
 		{
-			name:     "Valid snowflake - 20 digits",
+			name:      "Valid snowflake - 20 digits",
 			snowflake: "12345678901234567890",
-			expected: true,
+			expected:  true,
 		},
 		{
-			name:     "Invalid snowflake - too short",
+			name:      "Invalid snowflake - too short",
 			snowflake: "1234567890123456",
-			expected: false,
+			expected:  false,
 		},
 		{
-			name:     "Invalid snowflake - too long",
+			name:      "Invalid snowflake - too long",
 			snowflake: "123456789012345678901",
-			expected: false,
+			expected:  false,
 		},
 		{
-			name:     "Invalid snowflake - non-numeric",
+			name:      "Invalid snowflake - non-numeric",
 			snowflake: "12345678901234567a",
-			expected: false,
+			expected:  false,
 		},
 		{
-			name:     "Empty snowflake",
+			name:      "Empty snowflake",
 			snowflake: "",
-			expected: false,
+			expected:  false,
 		},
 	}
 
@@ -224,18 +224,18 @@ func TestNewSnowflakeFromInt64(t *testing.T) {
 func TestSnowflake_TimestampExtraction(t *testing.T) {
 	// Test that we can extract a reasonable timestamp from a snowflake
 	snowflake := Snowflake("123456789012345678")
-	
+
 	extractedTime, err := snowflake.Time()
 	if err != nil {
 		t.Fatalf("Failed to extract time from snowflake: %v", err)
 	}
-	
+
 	// The time should be after Discord's epoch (2015-01-01)
 	discordEpoch := time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC)
 	if extractedTime.Before(discordEpoch) {
 		t.Errorf("Extracted time %v is before Discord epoch %v", extractedTime, discordEpoch)
 	}
-	
+
 	// The time should be reasonable (not in the far future)
 	farFuture := time.Now().AddDate(10, 0, 0) // 10 years from now
 	if extractedTime.After(farFuture) {
