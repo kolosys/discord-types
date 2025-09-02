@@ -11,7 +11,7 @@ import "github.com/kolosys/discord-types/discord"
 
 // AutoModerationRuleCreateDispatch represents an auto moderation rule create dispatch event.
 type AutoModerationRuleCreateDispatch struct {
-	Op Opcodes                              `json:"op"`
+	Op GatewayOpcode                        `json:"op"`
 	T  string                               `json:"t"`
 	S  int                                  `json:"s"`
 	D  AutoModerationRuleCreateDispatchData `json:"d"`
@@ -26,7 +26,7 @@ type AutoModerationRuleCreateDispatchData struct {
 
 // AutoModerationRuleUpdateDispatch represents an auto moderation rule update dispatch event.
 type AutoModerationRuleUpdateDispatch struct {
-	Op Opcodes                              `json:"op"`
+	Op GatewayOpcode                        `json:"op"`
 	T  string                               `json:"t"`
 	S  int                                  `json:"s"`
 	D  AutoModerationRuleUpdateDispatchData `json:"d"`
@@ -40,7 +40,7 @@ type AutoModerationRuleUpdateDispatchData struct {
 
 // AutoModerationRuleDeleteDispatch represents an auto moderation rule delete dispatch event.
 type AutoModerationRuleDeleteDispatch struct {
-	Op Opcodes                              `json:"op"`
+	Op GatewayOpcode                        `json:"op"`
 	T  string                               `json:"t"`
 	S  int                                  `json:"s"`
 	D  AutoModerationRuleDeleteDispatchData `json:"d"`
@@ -54,7 +54,7 @@ type AutoModerationRuleDeleteDispatchData struct {
 
 // AutoModerationActionExecutionDispatch represents an auto moderation action execution dispatch event.
 type AutoModerationActionExecutionDispatch struct {
-	Op Opcodes                                   `json:"op"`
+	Op GatewayOpcode                             `json:"op"`
 	T  string                                    `json:"t"`
 	S  int                                       `json:"s"`
 	D  AutoModerationActionExecutionDispatchData `json:"d"`
@@ -82,7 +82,7 @@ type AutoModerationActionExecutionDispatchData struct {
 
 // ApplicationCommandPermissionsUpdateDispatch represents application command permissions update dispatch event.
 type ApplicationCommandPermissionsUpdateDispatch struct {
-	Op Opcodes                                         `json:"op"`
+	Op GatewayOpcode                                   `json:"op"`
 	T  string                                          `json:"t"`
 	S  int                                             `json:"s"`
 	D  ApplicationCommandPermissionsUpdateDispatchData `json:"d"`
@@ -103,7 +103,7 @@ type ApplicationCommandPermissionsUpdateDispatchData struct {
 
 // ChannelCreateDispatch represents a channel create dispatch event.
 type ChannelCreateDispatch struct {
-	Op Opcodes                   `json:"op"`
+	Op GatewayOpcode             `json:"op"`
 	T  string                    `json:"t"`
 	S  int                       `json:"s"`
 	D  ChannelCreateDispatchData `json:"d"`
@@ -120,7 +120,7 @@ type ChannelCreateDispatchData struct {
 
 // ChannelUpdateDispatch represents a channel update dispatch event.
 type ChannelUpdateDispatch struct {
-	Op Opcodes                   `json:"op"`
+	Op GatewayOpcode             `json:"op"`
 	T  string                    `json:"t"`
 	S  int                       `json:"s"`
 	D  ChannelUpdateDispatchData `json:"d"`
@@ -132,7 +132,7 @@ type ChannelUpdateDispatchData = ChannelCreateDispatchData
 
 // ChannelDeleteDispatch represents a channel delete dispatch event.
 type ChannelDeleteDispatch struct {
-	Op Opcodes                   `json:"op"`
+	Op GatewayOpcode             `json:"op"`
 	T  string                    `json:"t"`
 	S  int                       `json:"s"`
 	D  ChannelDeleteDispatchData `json:"d"`
@@ -144,7 +144,7 @@ type ChannelDeleteDispatchData = ChannelCreateDispatchData
 
 // ChannelPinsUpdateDispatch represents a channel pins update dispatch event.
 type ChannelPinsUpdateDispatch struct {
-	Op Opcodes                       `json:"op"`
+	Op GatewayOpcode                 `json:"op"`
 	T  string                        `json:"t"`
 	S  int                           `json:"s"`
 	D  ChannelPinsUpdateDispatchData `json:"d"`
@@ -164,7 +164,7 @@ type ChannelPinsUpdateDispatchData struct {
 
 // EntitlementCreateDispatch represents an entitlement create dispatch event.
 type EntitlementCreateDispatch struct {
-	Op Opcodes                       `json:"op"`
+	Op GatewayOpcode                 `json:"op"`
 	T  string                        `json:"t"`
 	S  int                           `json:"s"`
 	D  EntitlementCreateDispatchData `json:"d"`
@@ -178,7 +178,7 @@ type EntitlementCreateDispatchData struct {
 
 // EntitlementUpdateDispatch represents an entitlement update dispatch event.
 type EntitlementUpdateDispatch struct {
-	Op Opcodes                       `json:"op"`
+	Op GatewayOpcode                 `json:"op"`
 	T  string                        `json:"t"`
 	S  int                           `json:"s"`
 	D  EntitlementUpdateDispatchData `json:"d"`
@@ -190,7 +190,7 @@ type EntitlementUpdateDispatchData = EntitlementCreateDispatchData
 
 // EntitlementDeleteDispatch represents an entitlement delete dispatch event.
 type EntitlementDeleteDispatch struct {
-	Op Opcodes                       `json:"op"`
+	Op GatewayOpcode                 `json:"op"`
 	T  string                        `json:"t"`
 	S  int                           `json:"s"`
 	D  EntitlementDeleteDispatchData `json:"d"`
@@ -206,7 +206,7 @@ type EntitlementDeleteDispatchData = EntitlementCreateDispatchData
 
 // GuildAuditLogEntryCreateDispatch represents a guild audit log entry create dispatch event.
 type GuildAuditLogEntryCreateDispatch struct {
-	Op Opcodes                              `json:"op"`
+	Op GatewayOpcode                        `json:"op"`
 	T  string                               `json:"t"`
 	S  int                                  `json:"s"`
 	D  GuildAuditLogEntryCreateDispatchData `json:"d"`
@@ -225,7 +225,7 @@ type GuildAuditLogEntryCreateDispatchData struct {
 
 // GuildBanAddDispatch represents a guild ban add dispatch event.
 type GuildBanAddDispatch struct {
-	Op Opcodes                 `json:"op"`
+	Op GatewayOpcode           `json:"op"`
 	T  string                  `json:"t"`
 	S  int                     `json:"s"`
 	D  GuildBanAddDispatchData `json:"d"`
@@ -240,7 +240,7 @@ type GuildBanAddDispatchData struct {
 
 // GuildBanRemoveDispatch represents a guild ban remove dispatch event.
 type GuildBanRemoveDispatch struct {
-	Op Opcodes                    `json:"op"`
+	Op GatewayOpcode              `json:"op"`
 	T  string                     `json:"t"`
 	S  int                        `json:"s"`
 	D  GuildBanRemoveDispatchData `json:"d"`
@@ -256,7 +256,7 @@ type GuildBanRemoveDispatchData = GuildBanAddDispatchData
 
 // GuildDeleteDispatch represents a guild delete dispatch event.
 type GuildDeleteDispatch struct {
-	Op Opcodes                 `json:"op"`
+	Op GatewayOpcode           `json:"op"`
 	T  string                  `json:"t"`
 	S  int                     `json:"s"`
 	D  GuildDeleteDispatchData `json:"d"`
@@ -275,7 +275,7 @@ type GuildDeleteDispatchData struct {
 
 // GuildUpdateDispatch represents a guild update dispatch event.
 type GuildUpdateDispatch struct {
-	Op Opcodes                 `json:"op"`
+	Op GatewayOpcode           `json:"op"`
 	T  string                  `json:"t"`
 	S  int                     `json:"s"`
 	D  GuildUpdateDispatchData `json:"d"`
@@ -293,7 +293,7 @@ type GuildUpdateDispatchData struct {
 
 // GuildEmojisUpdateDispatch represents a guild emojis update dispatch event.
 type GuildEmojisUpdateDispatch struct {
-	Op Opcodes                       `json:"op"`
+	Op GatewayOpcode                 `json:"op"`
 	T  string                        `json:"t"`
 	S  int                           `json:"s"`
 	D  GuildEmojisUpdateDispatchData `json:"d"`
@@ -312,7 +312,7 @@ type GuildEmojisUpdateDispatchData struct {
 
 // GuildStickersUpdateDispatch represents a guild stickers update dispatch event.
 type GuildStickersUpdateDispatch struct {
-	Op Opcodes                         `json:"op"`
+	Op GatewayOpcode                   `json:"op"`
 	T  string                          `json:"t"`
 	S  int                             `json:"s"`
 	D  GuildStickersUpdateDispatchData `json:"d"`
@@ -331,7 +331,7 @@ type GuildStickersUpdateDispatchData struct {
 
 // GuildIntegrationsUpdateDispatch represents a guild integrations update dispatch event.
 type GuildIntegrationsUpdateDispatch struct {
-	Op Opcodes                             `json:"op"`
+	Op GatewayOpcode                       `json:"op"`
 	T  string                              `json:"t"`
 	S  int                                 `json:"s"`
 	D  GuildIntegrationsUpdateDispatchData `json:"d"`
@@ -349,7 +349,7 @@ type GuildIntegrationsUpdateDispatchData struct {
 
 // GuildMemberAddDispatch represents a guild member add dispatch event.
 type GuildMemberAddDispatch struct {
-	Op Opcodes                    `json:"op"`
+	Op GatewayOpcode              `json:"op"`
 	T  string                     `json:"t"`
 	S  int                        `json:"s"`
 	D  GuildMemberAddDispatchData `json:"d"`
@@ -364,7 +364,7 @@ type GuildMemberAddDispatchData struct {
 
 // GuildMemberRemoveDispatch represents a guild member remove dispatch event.
 type GuildMemberRemoveDispatch struct {
-	Op Opcodes                       `json:"op"`
+	Op GatewayOpcode                 `json:"op"`
 	T  string                        `json:"t"`
 	S  int                           `json:"s"`
 	D  GuildMemberRemoveDispatchData `json:"d"`
@@ -379,7 +379,7 @@ type GuildMemberRemoveDispatchData struct {
 
 // GuildMemberUpdateDispatch represents a guild member update dispatch event.
 type GuildMemberUpdateDispatch struct {
-	Op Opcodes                       `json:"op"`
+	Op GatewayOpcode                 `json:"op"`
 	T  string                        `json:"t"`
 	S  int                           `json:"s"`
 	D  GuildMemberUpdateDispatchData `json:"d"`
@@ -394,7 +394,7 @@ type GuildMemberUpdateDispatchData struct {
 
 // GuildMembersChunkDispatch represents a guild members chunk dispatch event.
 type GuildMembersChunkDispatch struct {
-	Op Opcodes                       `json:"op"`
+	Op GatewayOpcode                 `json:"op"`
 	T  string                        `json:"t"`
 	S  int                           `json:"s"`
 	D  GuildMembersChunkDispatchData `json:"d"`
@@ -418,7 +418,7 @@ type GuildMembersChunkDispatchData struct {
 
 // GuildRoleCreateDispatch represents a guild role create dispatch event.
 type GuildRoleCreateDispatch struct {
-	Op Opcodes                     `json:"op"`
+	Op GatewayOpcode               `json:"op"`
 	T  string                      `json:"t"`
 	S  int                         `json:"s"`
 	D  GuildRoleCreateDispatchData `json:"d"`
@@ -433,7 +433,7 @@ type GuildRoleCreateDispatchData struct {
 
 // GuildRoleUpdateDispatch represents a guild role update dispatch event.
 type GuildRoleUpdateDispatch struct {
-	Op Opcodes                     `json:"op"`
+	Op GatewayOpcode               `json:"op"`
 	T  string                      `json:"t"`
 	S  int                         `json:"s"`
 	D  GuildRoleUpdateDispatchData `json:"d"`
@@ -445,7 +445,7 @@ type GuildRoleUpdateDispatchData = GuildRoleCreateDispatchData
 
 // GuildRoleDeleteDispatch represents a guild role delete dispatch event.
 type GuildRoleDeleteDispatch struct {
-	Op Opcodes                     `json:"op"`
+	Op GatewayOpcode               `json:"op"`
 	T  string                      `json:"t"`
 	S  int                         `json:"s"`
 	D  GuildRoleDeleteDispatchData `json:"d"`
@@ -464,7 +464,7 @@ type GuildRoleDeleteDispatchData struct {
 
 // MessageUpdateDispatch represents a message update dispatch event.
 type MessageUpdateDispatch struct {
-	Op Opcodes                   `json:"op"`
+	Op GatewayOpcode             `json:"op"`
 	T  string                    `json:"t"`
 	S  int                       `json:"s"`
 	D  MessageUpdateDispatchData `json:"d"`
@@ -482,7 +482,7 @@ type MessageUpdateDispatchData struct {
 
 // MessageDeleteDispatch represents a message delete dispatch event.
 type MessageDeleteDispatch struct {
-	Op Opcodes                   `json:"op"`
+	Op GatewayOpcode             `json:"op"`
 	T  string                    `json:"t"`
 	S  int                       `json:"s"`
 	D  MessageDeleteDispatchData `json:"d"`
@@ -498,7 +498,7 @@ type MessageDeleteDispatchData struct {
 
 // MessageDeleteBulkDispatch represents a message delete bulk dispatch event.
 type MessageDeleteBulkDispatch struct {
-	Op Opcodes                       `json:"op"`
+	Op GatewayOpcode                 `json:"op"`
 	T  string                        `json:"t"`
 	S  int                           `json:"s"`
 	D  MessageDeleteBulkDispatchData `json:"d"`
@@ -518,7 +518,7 @@ type MessageDeleteBulkDispatchData struct {
 
 // MessagePollVoteAddDispatch represents a message poll vote add dispatch event.
 type MessagePollVoteAddDispatch struct {
-	Op Opcodes                        `json:"op"`
+	Op GatewayOpcode                  `json:"op"`
 	T  string                         `json:"t"`
 	S  int                            `json:"s"`
 	D  MessagePollVoteAddDispatchData `json:"d"`
@@ -536,7 +536,7 @@ type MessagePollVoteAddDispatchData struct {
 
 // MessagePollVoteRemoveDispatch represents a message poll vote remove dispatch event.
 type MessagePollVoteRemoveDispatch struct {
-	Op Opcodes                           `json:"op"`
+	Op GatewayOpcode                     `json:"op"`
 	T  string                            `json:"t"`
 	S  int                               `json:"s"`
 	D  MessagePollVoteRemoveDispatchData `json:"d"`
@@ -552,7 +552,7 @@ type MessagePollVoteRemoveDispatchData = MessagePollVoteAddDispatchData
 
 // MessageReactionAddDispatch represents a message reaction add dispatch event.
 type MessageReactionAddDispatch struct {
-	Op Opcodes                        `json:"op"`
+	Op GatewayOpcode                  `json:"op"`
 	T  string                         `json:"t"`
 	S  int                            `json:"s"`
 	D  MessageReactionAddDispatchData `json:"d"`
@@ -575,7 +575,7 @@ type MessageReactionAddDispatchData struct {
 
 // MessageReactionRemoveDispatch represents a message reaction remove dispatch event.
 type MessageReactionRemoveDispatch struct {
-	Op Opcodes                           `json:"op"`
+	Op GatewayOpcode                     `json:"op"`
 	T  string                            `json:"t"`
 	S  int                               `json:"s"`
 	D  MessageReactionRemoveDispatchData `json:"d"`
@@ -595,7 +595,7 @@ type MessageReactionRemoveDispatchData struct {
 
 // MessageReactionRemoveAllDispatch represents a message reaction remove all dispatch event.
 type MessageReactionRemoveAllDispatch struct {
-	Op Opcodes                              `json:"op"`
+	Op GatewayOpcode                        `json:"op"`
 	T  string                               `json:"t"`
 	S  int                                  `json:"s"`
 	D  MessageReactionRemoveAllDispatchData `json:"d"`
@@ -611,7 +611,7 @@ type MessageReactionRemoveAllDispatchData struct {
 
 // MessageReactionRemoveEmojiDispatch represents a message reaction remove emoji dispatch event.
 type MessageReactionRemoveEmojiDispatch struct {
-	Op Opcodes                                `json:"op"`
+	Op GatewayOpcode                          `json:"op"`
 	T  string                                 `json:"t"`
 	S  int                                    `json:"s"`
 	D  MessageReactionRemoveEmojiDispatchData `json:"d"`
@@ -632,7 +632,7 @@ type MessageReactionRemoveEmojiDispatchData struct {
 
 // VoiceServerUpdateDispatch represents a voice server update dispatch event.
 type VoiceServerUpdateDispatch struct {
-	Op Opcodes                       `json:"op"`
+	Op GatewayOpcode                 `json:"op"`
 	T  string                        `json:"t"`
 	S  int                           `json:"s"`
 	D  VoiceServerUpdateDispatchData `json:"d"`
@@ -648,7 +648,7 @@ type VoiceServerUpdateDispatchData struct {
 
 // VoiceStateUpdateDispatch represents a voice state update dispatch event.
 type VoiceStateUpdateDispatch struct {
-	Op Opcodes                       `json:"op"`
+	Op GatewayOpcode                 `json:"op"`
 	T  string                        `json:"t"`
 	S  int                           `json:"s"`
 	D  VoiceStateUpdateDispatchData2 `json:"d"`
@@ -664,7 +664,7 @@ type VoiceStateUpdateDispatchData2 struct {
 
 // VoiceChannelEffectSendDispatch represents a voice channel effect send dispatch event.
 type VoiceChannelEffectSendDispatch struct {
-	Op Opcodes                            `json:"op"`
+	Op GatewayOpcode                      `json:"op"`
 	T  string                             `json:"t"`
 	S  int                                `json:"s"`
 	D  VoiceChannelEffectSendDispatchData `json:"d"`

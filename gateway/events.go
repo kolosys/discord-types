@@ -39,7 +39,7 @@ type PartialApplication struct {
 
 // ReadyDispatch represents a Ready dispatch event.
 type ReadyDispatch struct {
-	Op Opcodes           `json:"op"`
+	Op GatewayOpcode     `json:"op"`
 	T  string            `json:"t"`
 	S  int               `json:"s"`
 	D  ReadyDispatchData `json:"d"`
@@ -150,7 +150,7 @@ type MessageCreateDispatchData struct {
 
 // MessageCreateDispatch represents a Message Create dispatch event.
 type MessageCreateDispatch struct {
-	Op Opcodes                   `json:"op"`
+	Op GatewayOpcode             `json:"op"`
 	T  string                    `json:"t"`
 	S  int                       `json:"s"`
 	D  MessageCreateDispatchData `json:"d"`
@@ -214,7 +214,7 @@ type GuildCreateDispatchData struct {
 
 // GuildCreateDispatch represents a Guild Create dispatch event.
 type GuildCreateDispatch struct {
-	Op Opcodes                 `json:"op"`
+	Op GatewayOpcode           `json:"op"`
 	T  string                  `json:"t"`
 	S  int                     `json:"s"`
 	D  GuildCreateDispatchData `json:"d"`

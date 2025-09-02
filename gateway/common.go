@@ -44,15 +44,15 @@ const (
 	GatewayCompressionZlibStream GatewayCompression = "zlib-stream"
 )
 
-// Opcodes represents Gateway opcodes.
+// GatewayOpcode represents Gateway opcodes.
 //
 // See: https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
-type Opcodes int
+type GatewayOpcode int
 
 // Gateway opcode constants
 const (
 	// OpcodeDispatch indicates an event was dispatched.
-	OpcodeDispatch Opcodes = iota
+	OpcodeDispatch GatewayOpcode = iota
 
 	// OpcodeHeartbeat is a bidirectional opcode to maintain an active gateway connection.
 	// Fired periodically by the client, or fired by the gateway to request an immediate heartbeat from the client.
@@ -90,7 +90,7 @@ const (
 )
 
 // RequestSoundboardSounds requests information about soundboard sounds in a set of guilds.
-const OpcodeRequestSoundboardSounds Opcodes = 31
+const OpcodeRequestSoundboardSounds GatewayOpcode = 31
 
 // CloseCodes represents Gateway close event codes.
 //
@@ -242,19 +242,25 @@ const (
 )
 
 // SendPayload represents payloads that can be sent to the Gateway.
-type SendPayload interface {
-	isSendPayload()
+type SendPayload[DATA any] struct {
+	Op GatewayOpcode `json:"op"`
+	D  DATA
 }
 
+func (p SendPayload[DATA]) isSendPayload() {}
+
 // ReceivePayload represents payloads that can be received from the Gateway.
-type ReceivePayload interface {
-	isReceivePayload()
+type ReceivePayload[DATA any] struct {
+	Op GatewayOpcode `json:"op"`
+	D  DATA
 }
+
+func (p ReceivePayload[DATA]) isReceivePayload() {}
 
 // BasePayload represents the base structure for all Gateway payloads.
 type BasePayload struct {
 	// Op is the opcode for the payload.
-	Op Opcodes `json:"op"`
+	Op GatewayOpcode `json:"op"`
 
 	// D is the event data.
 	D interface{} `json:"d,omitempty"`
@@ -293,8 +299,8 @@ type HelloData struct {
 
 // Hello represents a Hello payload.
 type Hello struct {
-	Op Opcodes   `json:"op"`
-	D  HelloData `json:"d"`
+	Op GatewayOpcode `json:"op"`
+	D  HelloData     `json:"d"`
 }
 
 func (p Hello) isReceivePayload() {}
@@ -303,16 +309,16 @@ func (p Hello) isReceivePayload() {}
 //
 // See: https://discord.com/developers/docs/topics/gateway#sending-heartbeats
 type Heartbeat struct {
-	Op Opcodes `json:"op"`
-	D  *int    `json:"d"` // Sequence number
+	Op GatewayOpcode `json:"op"`
+	D  *int          `json:"d"` // Sequence number
 }
 
 func (p Heartbeat) isSendPayload() {}
 
 // HeartbeatAck represents a Heartbeat ACK payload.
 type HeartbeatAck struct {
-	Op Opcodes `json:"op"`
-	D  *int    `json:"d"`
+	Op GatewayOpcode `json:"op"`
+	D  *int          `json:"d"`
 }
 
 func (p HeartbeatAck) isReceivePayload() {}
@@ -324,7 +330,7 @@ type InvalidSessionData bool
 //
 // See: https://discord.com/developers/docs/topics/gateway-events#invalid-session
 type InvalidSession struct {
-	Op Opcodes            `json:"op"`
+	Op GatewayOpcode      `json:"op"`
 	D  InvalidSessionData `json:"d"`
 }
 
@@ -334,7 +340,7 @@ func (p InvalidSession) isReceivePayload() {}
 //
 // See: https://discord.com/developers/docs/topics/gateway-events#reconnect
 type Reconnect struct {
-	Op Opcodes `json:"op"`
+	Op GatewayOpcode `json:"op"`
 }
 
 func (p Reconnect) isReceivePayload() {}
@@ -382,8 +388,8 @@ type IdentifyProperties struct {
 
 // Identify represents an Identify payload.
 type Identify struct {
-	Op Opcodes      `json:"op"`
-	D  IdentifyData `json:"d"`
+	Op GatewayOpcode `json:"op"`
+	D  IdentifyData  `json:"d"`
 }
 
 func (p Identify) isSendPayload() {}
@@ -445,7 +451,7 @@ const (
 
 // PresenceUpdate represents a Presence Update payload.
 type PresenceUpdate struct {
-	Op Opcodes            `json:"op"`
+	Op GatewayOpcode      `json:"op"`
 	D  PresenceUpdateData `json:"d"`
 }
 

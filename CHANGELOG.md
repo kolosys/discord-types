@@ -7,7 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.0.0] - 2025-08-29
+## [1.0.1] - 2025-09-02
+
+### Changed
+
+- **Gateway Payload Types**: Simplified and consolidated gateway payload type definitions
+  - Introduced generic `GatewayPayload[T]` base struct to eliminate repetitive code
+  - Replaced verbose struct definitions with type aliases (e.g., `type Resume = GatewayPayload[ResumeData]`)
+  - Consolidated `RequestGuildMembersData` union types into a single struct with optional fields
+  - Removed empty marker method implementations (`isSendPayload()`, `isGatewaySendPayload()`, etc.)
+  - Reduced file size from ~281 lines to ~120 lines (57% reduction)
+
+### Improved
+
+- **Code Maintainability**: Adding new payload types now requires only a type alias
+- **Type Safety**: Maintained full type safety through Go's generic system
+- **Performance**: Eliminated unnecessary interface method calls and reduced memory allocations
+- **Developer Experience**: Cleaner, more readable code structure
+
+---
+
+## [1.0.0] - 2025-09-01
 
 ### Added
 
