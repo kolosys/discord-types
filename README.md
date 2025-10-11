@@ -1,243 +1,281 @@
-# discord-api-types (Go)
+# discord-types
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/kolosys/discord-types.svg)](https://pkg.go.dev/github.com/kolosys/discord-types)
 [![Go Report Card](https://goreportcard.com/badge/github.com/kolosys/discord-types)](https://goreportcard.com/report/github.com/kolosys/discord-types)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Go Version](https://img.shields.io/badge/Go-1.24+-00ADD8?logo=go)](https://go.dev)
 
-Discord API types for Go that are kept up to date for use in Discord bot library creation.
+A comprehensive Go library providing type definitions for Discord API v10. This library offers strongly-typed structs, constants, and utilities for building Discord bots and applications in Go.
 
-This library provides comprehensive Go type definitions for the Discord API v10, including:
+## ✨ Features
 
-- **Payloads**: User, Guild, Channel, Message, Auto Moderation, Monetization, Polls, Soundboard, and all Discord structures
-- **REST API**: Request/response types and route constants
-- **Gateway**: Complete WebSocket event types, dispatch events, and payloads (70+ events)
-- **Voice**: Voice Gateway v8 with DAVE protocol support and E2E encryption
-- **Utilities**: Helper functions and constants
+- **Complete Discord API v10 Coverage** - All Discord API types, structures, and constants
+- **Strongly Typed** - Full type safety with comprehensive struct definitions
+- **Zero Dependencies** - Pure Go implementation with no external dependencies
+- **Well Documented** - Extensive documentation with Discord API references
+- **Permission System** - Complete permission flags and bitwise operations
+- **Message Formatting** - Built-in regex patterns for Discord message parsing
+- **Interaction Support** - Full support for slash commands, components, and modals
+- **Gateway Events** - Complete gateway event structures and dispatch data
+- **REST API Types** - All REST endpoint request/response structures
 
-## Features
+## 🚀 Quick Start
 
-✨ **Complete API v10 Coverage** - All Discord API v10 types including latest features  
-🛡️ **Auto Moderation** - Full support for Discord's auto-moderation system  
-📊 **Polls** - Complete poll creation, voting, and management  
-🔊 **Soundboard** - Guild soundboard sound management  
-💰 **Monetization** - SKUs, subscriptions, and entitlements  
-📅 **Scheduled Events** - Event scheduling with recurrence support  
-🧵 **Threads** - Complete thread lifecycle management  
-🎭 **Stage Instances** - Voice stage management  
-🔐 **Voice Gateway v8** - Complete voice support with DAVE E2E encryption  
-⚡ **70+ Gateway Events** - All Discord WebSocket events  
-🤖 **Complete RPC API** - Rich Presence, voice control, and Discord client interaction  
-🔒 **Type Safety** - Compile-time validation with Go interfaces
-
-## Installation
+### Installation
 
 ```bash
-go get github.com/kolosys/discord-types
+go get github.com/kolosys/discord-types/v10
 ```
 
-## Usage
-
-### Basic Types
+### Basic Usage
 
 ```go
 package main
 
 import (
     "fmt"
-    "github.com/kolosys/discord-types/discord"
-    "github.com/kolosys/discord-types/payloads"
-    "github.com/kolosys/discord-types/rest"
+    discord "github.com/kolosys/discord-types/v10"
 )
 
 func main() {
-    // Using core types
-    var userID discord.Snowflake = "123456789012345678"
-
-    // Using payload types
-    user := payloads.User{
-        ID:            userID,
-        Username:      "example",
-        Discriminator: "0001",
-        GlobalName:    StringPtr("Example User"),
-    }
-
-    // Using REST routes
-    userRoute := rest.Routes.User(userID)
-    fmt.Printf("User route: %s\n", userRoute)
-}
-
-func StringPtr(s string) *string {
-    return &s
-}
-```
-
-### Gateway Events
-
-```go
-package main
-
-import (
-    "fmt"
-    "github.com/kolosys/discord-types/gateway"
-)
-
-func handleGatewayEvent(event gateway.GatewayReceivePayload) {
-    switch e := event.(type) {
-    case gateway.ReadyDispatch:
-        fmt.Printf("Bot connected as: %s\n", e.D.User.Username)
-
-    case gateway.MessageCreateDispatch:
-        fmt.Printf("Message from %s: %s\n",
-            e.D.Author.Username,
-            e.D.Content)
-
-    case gateway.GuildCreateDispatch:
-        fmt.Printf("Guild: %s (%d members)\n",
-            e.D.Name,
-            e.D.MemberCount)
-
-    case gateway.AutoModerationActionExecutionDispatch:
-        fmt.Printf("Auto-mod action: Rule %s triggered by user %s\n",
-            e.D.RuleID,
-            e.D.UserID)
-
-    case gateway.MessagePollVoteAddDispatch:
-        fmt.Printf("Poll vote: User %s voted for answer %d\n",
-            e.D.UserID,
-            e.D.AnswerID)
-    }
-}
-```
-
-### Voice Gateway
-
-```go
-package main
-
-import (
-    "github.com/kolosys/discord-types/voice"
-    "github.com/kolosys/discord-types/discord"
-)
-
-func handleVoiceEvent(event voice.VoiceReceivePayload) {
-    switch e := event.(type) {
-    case voice.VoiceReady:
-        fmt.Printf("Voice ready: SSRC=%d, IP=%s, Port=%d\n",
-            e.D.SSRC, e.D.IP, e.D.Port)
-
-    case voice.VoiceSpeaking:
-        fmt.Printf("User %s is speaking (SSRC: %d)\n",
-            e.D.UserID, e.D.SSRC)
-
-    case voice.VoiceClientsConnect:
-        fmt.Printf("Clients connected: %v\n", e.D.UserIDs)
-    }
-}
-
-func sendVoiceIdentify(serverID, userID discord.Snowflake, sessionID, token string) voice.VoiceIdentify {
-    return voice.VoiceIdentify{
-        Op: voice.VoiceOpcodeIdentify,
-        D: voice.VoiceIdentifyData{
-            ServerID:  serverID,
-            UserID:    userID,
-            SessionID: sessionID,
-            Token:     token,
+    // Create a message embed
+    embed := discord.Embed{
+        Title:       "Hello, Discord!",
+        Description: "This is a sample embed",
+        Color:       discord.ColorBlurple,
+        Fields: []discord.EmbedField{
+            {
+                Name:   "Field 1",
+                Value:  "Some value",
+                Inline: true,
+            },
         },
     }
-}
-```
 
-### RPC (Rich Presence Client)
-
-```go
-package main
-
-import (
-    "github.com/kolosys/discord-types/rpc"
-    "github.com/kolosys/discord-types/discord"
-)
-
-func sendRPCCommand(clientID discord.Snowflake) rpc.RPCCommandPayload {
-    return rpc.RPCCommandPayload{
-        Cmd: rpc.RPCCommandSetActivity,
-        Args: map[string]interface{}{
-            "activity": map[string]interface{}{
-                "details": "Playing a game",
-                "state":   "In a match",
-                "timestamps": map[string]interface{}{
-                    "start": 1234567890,
+    // Create a message with components
+    message := discord.Message{
+        Content: "Hello from Go!",
+        Embeds:  []discord.Embed{embed},
+        Components: []discord.MessageComponent{
+            discord.ActionRow{
+                Components: []discord.MessageComponent{
+                    discord.Button{
+                        Type:     discord.ComponentTypeButton,
+                        Style:    discord.ButtonStylePrimary,
+                        Label:    "Click me!",
+                        CustomID: "button_1",
+                    },
                 },
             },
         },
-        Nonce: "unique-nonce-123",
+    }
+
+    fmt.Printf("Message: %+v\n", message)
+}
+```
+
+## 📚 Key Components
+
+### Core Types
+
+- **Snowflake** - Discord's unique identifier system
+- **User, Guild, Channel** - Core Discord entities
+- **Message, Embed** - Message structures and rich embeds
+- **Interaction** - Slash commands, buttons, select menus, modals
+- **Permissions** - Complete permission system with bitwise operations
+
+### Message Components
+
+```go
+// Create interactive components
+button := discord.Button{
+    Type:     discord.ComponentTypeButton,
+    Style:    discord.ButtonStyleSecondary,
+    Label:    "Click me",
+    CustomID: "my_button",
+    Emoji: &discord.PartialEmoji{
+        Name: "👋",
+    },
+}
+
+selectMenu := discord.StringSelectMenu{
+    Type:        discord.ComponentTypeStringSelect,
+    CustomID:    "my_select",
+    Placeholder: "Choose an option",
+    Options: []discord.SelectOption{
+        {
+            Label:       "Option 1",
+            Value:       "opt1",
+            Description: "First option",
+        },
+    },
+}
+```
+
+### Slash Commands
+
+```go
+// Define a slash command
+command := discord.ApplicationCommand{
+    Name:        "hello",
+    Description: "Say hello to someone",
+    Options: []discord.ApplicationCommandOption{
+        {
+            Type:        discord.ApplicationCommandOptionTypeUser,
+            Name:        "user",
+            Description: "User to greet",
+            Required:    true,
+        },
+    },
+}
+```
+
+### Permission Handling
+
+```go
+// Check and manipulate permissions
+perms := discord.PermissionFlagsBits.SendMessages |
+          discord.PermissionFlagsBits.EmbedLinks
+
+// Check if user has specific permission
+hasPermission := (userPermissions & discord.PermissionFlagsBits.Administrator) != 0
+
+// Create permission overwrite
+overwrite := discord.PermissionOverwrite{
+    ID:   userID,
+    Type: discord.PermissionOverwriteTypeMember,
+    Allow: discord.PermissionFlagsBits.SendMessages.String(),
+    Deny:  discord.PermissionFlagsBits.MentionEveryone.String(),
+}
+```
+
+### Message Formatting
+
+```go
+// Parse Discord message formatting
+userMention := discord.FormattingPatterns.User.FindString("<@123456789>")
+channelMention := discord.FormattingPatterns.Channel.FindString("<#987654321>")
+timestamp := discord.FormattingPatterns.Timestamp.FindString("<t:1640995200:F>")
+```
+
+## 🎯 Common Use Cases
+
+### Building a Discord Bot
+
+```go
+// Handle slash command interaction
+func handleSlashCommand(interaction discord.Interaction) {
+    if interaction.Data.Name == "ping" {
+        response := discord.InteractionResponse{
+            Type: discord.InteractionResponseTypeChannelMessageWithSource,
+            Data: &discord.InteractionResponseData{
+                Content: "Pong! 🏓",
+                Flags:   discord.MessageFlagEphemeral,
+            },
+        }
+        // Send response...
     }
 }
 
-func handleRPCEvent(payload rpc.RPCReceivePayload) {
-    switch p := payload.(type) {
-    case rpc.RPCEventPayload:
-        switch p.Evt {
-        case rpc.RPCEventReady:
-            fmt.Println("RPC client ready")
-        case rpc.RPCEventVoiceSettingsUpdate:
-            fmt.Println("Voice settings updated")
-        case rpc.RPCEventActivityJoinRequest:
-            fmt.Println("Activity join requested")
+// Handle button interaction
+func handleButton(interaction discord.Interaction) {
+    if interaction.Data.CustomID == "my_button" {
+        response := discord.InteractionResponse{
+            Type: discord.InteractionResponseTypeUpdateMessage,
+            Data: &discord.InteractionResponseData{
+                Content: "Button clicked!",
+                Components: []discord.MessageComponent{}, // Remove components
+            },
         }
-    case rpc.RPCErrorPayload:
-        fmt.Printf("RPC Error: %s (Code: %d)\n", p.Data.Message, p.Data.Code)
+        // Send response...
     }
 }
 ```
 
-## Package Structure
+### Webhook Integration
 
-- `discord-types` - Core types (Snowflake, Permissions, etc.)
-- `discord-types/payloads` - Complete Discord object structures including:
-  - Users, Guilds, Channels, Messages
-  - Auto Moderation rules and actions
-  - Monetization (SKUs, Subscriptions, Entitlements)
-  - Polls and voting
-  - Soundboard sounds
-  - Guild Scheduled Events with recurrence
-  - Audit Logs
-  - OAuth2 scopes
-  - Voice states and regions
-  - Templates and Teams
-  - Stage Instances
-- `discord-types/rest` - REST API routes and request/response types
-- `discord-types/gateway` - Complete WebSocket support including:
-  - 70+ dispatch event types
-  - Gateway connection management
-  - Comprehensive event data structures
-  - Send/receive payload interfaces
-- `discord-types/voice` - Voice Gateway v8 with:
-  - DAVE protocol support
-  - E2E encryption
-  - Voice connection management
-  - Speaking state management
-- `discord-types/rpc` - Rich Presence Client with:
-  - 60+ RPC commands for Discord client interaction
-  - Real-time event subscriptions
-  - Rich Presence activity management
-  - Voice settings and device control
-  - OAuth2 authentication support
-- `discord-types/utils` - Utility functions and helpers
+```go
+// Create webhook message
+webhookMessage := discord.ExecuteWebhookParams{
+    Content:   "Message from webhook",
+    Username:  "My Bot",
+    AvatarURL: "https://example.com/avatar.png",
+    Embeds: []discord.Embed{
+        {
+            Title: "Webhook Message",
+            Color: discord.ColorGreen,
+        },
+    },
+}
+```
 
-## Version Compatibility
+## 📖 Documentation
 
-This library tracks Discord API v10. This is the initial v1.0.0 release with complete Discord API v10 support:
+### Type Categories
 
-- v1.0.0+ - Complete Discord API v10 coverage
+- **`application.go`** - Application and OAuth2 structures
+- **`channel.go`** - Channel types and properties
+- **`components.go`** - Message components (buttons, select menus, modals)
+- **`embed.go`** - Rich embed structures
+- **`guild.go`** - Guild (server) related types
+- **`interactions.go`** - Slash commands and interaction handling
+- **`message.go`** - Message structures and attachments
+- **`permission.go`** - Permission flags and calculations
+- **`user.go`** - User and member structures
+- **`webhook.go`** - Webhook types and execution
 
-## Contributing
+### Constants and Limits
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+The library includes all Discord API limits and constants:
 
-## License
+```go
+discord.MaxMessageLength          // 2000 characters
+discord.MaxEmbedLength           // 6000 characters total
+discord.MaxEmbedFields           // 25 fields per embed
+discord.MaxEmbedsPerMessage      // 10 embeds per message
+discord.MaxButtonsPerActionRow   // 5 buttons per row
+discord.MaxActionRowsPerMessage  // 5 action rows per message
+```
+
+### Color Constants
+
+```go
+discord.ColorBlurple         // Discord's signature color
+discord.ColorGreen          // Success green
+discord.ColorRed            // Error red
+discord.ColorYellow         // Warning yellow
+// ... and many more
+```
+
+## 🔗 Related Projects
+
+This library is designed to work seamlessly with Discord bot frameworks and HTTP clients:
+
+- Use with [discordgo](https://github.com/bwmarrin/discordgo)
+- Integrate with custom HTTP clients
+- Perfect for webhook implementations
+- Ideal for Discord application development
+
+## 🤝 Contributing
+
+We welcome contributions! Please feel free to submit issues, feature requests, or pull requests.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Documentation
+## 🔗 Links
 
-For complete Discord API documentation, see the [official Discord API docs](https://discord.com/developers/docs/intro).
+- [Discord Developer Documentation](https://discord.com/developers/docs)
+- [Go Package Documentation](https://pkg.go.dev/github.com/kolosys/discord-types/v10)
+- [Discord API v10 Reference](https://discord.com/developers/docs/reference)
+
+---
+
+Built with ❤️ for the Discord developer community
